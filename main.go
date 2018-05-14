@@ -23,7 +23,7 @@ const (
 
 var (
   fileName = flag.String("f", "derp.txt", "name of the file to touch")
-  probability = flag.Int("p", 0, "probability of creating the file in a random directory. Out of 100.")
+  probability = flag.Int("p", 0, "probability of creating the file in a random directory. Out of 10000.")
   root = flag.String("r", "/", "starting directory of the spread")
   includeDot = flag.Bool("d", false, "Whether to include dot-files (default is off)")
 )
@@ -40,7 +40,7 @@ func visit(path string, f os.FileInfo, err error) error {
 
   mode := f.Mode()
   if mode & PublicWriteMode != 0 {
-    randVal := rand.Intn(1000)
+    randVal := rand.Intn(10000)
     if randVal < *probability {
       filePath := fmt.Sprintf("%s/%s", path, *fileName)
       newFile, err := os.Create(filePath)
