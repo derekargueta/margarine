@@ -43,12 +43,13 @@ func visit(path string, f os.FileInfo, err error) error {
     randVal := rand.Intn(1000)
     if randVal < *probability {
       filePath := fmt.Sprintf("%s/%s", path, *fileName)
-      _, err := os.Create(filePath)
+      newFile, err := os.Create(filePath)
       if err != nil {
         log.Printf("Failed to write file %s with error %v\n", filePath, err)
       } else {
         fmt.Println(filePath)
       }
+      newFile.Close()
     }
   }
   return nil
