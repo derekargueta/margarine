@@ -41,12 +41,13 @@ func visit(path string, f os.FileInfo, err error) error {
   mode := f.Mode()
   if mode & PublicWriteMode != 0 {
     randVal := rand.Intn(1000)
-    // fmt.Printf("comparing %d and %d\n", randVal, *probability)
     if randVal < *probability {
       filePath := fmt.Sprintf("%s/%s", path, *fileName)
       _, err := os.Create(filePath)
       if err != nil {
         log.Printf("Failed to write file %s with error %v\n", filePath, err)
+      } else {
+        fmt.Println(filePath)
       }
     }
   }
