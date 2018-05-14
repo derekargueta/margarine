@@ -3,13 +3,8 @@
 # simple script that accepts a file of new-line-separated paths to rm.
 
 function cleanup() {
-    if [ $# -ne 1 ]; then
-        "Usage: ./cleanup.sh FILE"
-        exit 1
-    fi
-    
     # iterate through the file and delete each path
-    IFS='' cat $1 | while read line; do
+    cat $2 | while read line; do
         rm "$line"
     done
 }
